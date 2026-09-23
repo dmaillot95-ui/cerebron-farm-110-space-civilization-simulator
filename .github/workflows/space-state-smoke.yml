@@ -1,0 +1,17 @@
+name: CEREBRON Space World state smoke
+on:
+  push:
+    paths: ["worker/**", ".github/workflows/space-state-smoke.yml"]
+  workflow_dispatch:
+jobs:
+  state-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python worker/state_smoke.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: f110-space-state
+          path: artifacts/state.json
